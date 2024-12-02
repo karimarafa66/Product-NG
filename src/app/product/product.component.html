@@ -1,0 +1,85 @@
+<div class="container " (swipeleft)="swipeLeft" (swiperight)="swipeRight">
+  <div class="mt-5 product-card d-flex flex-column flex-md-row  align-items-center">
+    <div class="order-2 order-md-1 col-md-4 col-sm-6 col-lg-4 col-12">
+      <div class="product-info text-sm-center text-md-start   ">
+        <h6 class="category mt-5 fw-bolder text-uppercase">
+          {{ data[currentIndex]?.category }} <i class="bi bi-dash-lg"></i>
+        </h6>
+        <h4 class="title mt-3 fw-bolder">{{ data[currentIndex]?.title }}</h4>
+        <p class="description text-body-tertiary mt-4 mt-md-5">
+          {{ data[currentIndex]?.description }}
+        </p>
+      </div>
+      <div class="slider mt-5">
+        <ngx-slick-carousel
+          class="carousel slider-nav"
+          #slickModal="slick-carousel"
+          [config]="slideConfig"
+          (init)="slickInit($event)"
+          (breakpoint)="breakpoint($event)"
+          (afterChange)="afterChange($event)"
+          (beforeChange)="beforeChange($event)"
+          *ngIf="!reloadCarousel"
+        >
+          <div *ngFor="let thumbnailImg of imgs">
+            <div ngxSlickItem class="slide thumbnailImg m-2">
+              <img class="" src="assets/{{ thumbnailImg }}" alt="" width="100%" />
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+    <div class="product-image col-md-4 col-sm-6 col-lg-4 col-4 order-1 order-md-2">
+      <ngx-slick-carousel class="carousel slider-for" *ngIf="!reloadCarousel" [config]="slideConfig1">
+        <div *ngFor="let thumbnailImg of imgs">
+          <div ngxSlickItem class="slide m-2 text-center">
+            <img
+              [@animate]="animationState"
+              class="img-fluid img-slide"
+              src="assets/{{ thumbnailImg }}"
+              alt=""
+            />
+          </div>
+        </div>
+      </ngx-slick-carousel>
+    </div>
+    <div class="product-size row col-md-4 col-sm-6 col-lg-4 col-12 order-3 order-md-3 ">
+      <div class="size mt-5">
+        <h6 class="fw-bolder">SIZE</h6>
+        <div class="radio__group">
+          <div *ngFor="let size of data[currentIndex]?.size" class="radio__button">
+            <input type="radio" [id]="size" name="type" [value]="size" />
+            <label [for]="size">
+              <p [title]="size">{{ size }}</p>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="reviews mt-4 mt-md-5">
+        <h6 class="fw-bolder d-inline-block me-5">REVIEWS </h6>
+        <meter
+          class="average-rating d-inline-block ms-2"
+          style="--percent: calc({{ data[currentIndex]?.rate }} / 5 * 100%);"
+          min="0"
+          max="5"
+          [value]="data[currentIndex]?.rate"
+          title="{{ data[currentIndex]?.rate }} out of 5 stars"
+        ></meter>
+      </div>
+      <div class="price mt-4 mt-md-5">
+        <h6 class="fw-bolder pe-5 d-inline-block me-2">PRICE </h6>
+        <span class="fw-bolder ms-2">{{ data[currentIndex]?.price | currency }}</span>
+      </div>
+      <div class="price mt-4 mt-md-5">
+        <h6 class="fw-bolder pe-5 d-inline-block me-2">COLOR </h6>
+        <div class="radio__group">
+          <div *ngFor="let color of data[currentIndex]?.colors" class="radio__color">
+            <input type="radio" [id]="color.name" name="type" [value]="color.name" />
+            <label [for]="color.name" [style]="'background-color:' + color.hex" (click)="changeImgs(currentIndex+1,color.name);startAnimation()">
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

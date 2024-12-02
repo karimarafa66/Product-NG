@@ -1,0 +1,19 @@
+<div
+  class="container d-flex justify-content-between mt-4 align-items-center"
+  id="navbar"
+>
+  <h1 class="navbar-brand text-uppercase">Kalli</h1>
+
+  <a class="nav-link active text-uppercase" aria-current="page" href="#"
+    ><i class="bi bi-arrow-left"></i> Back</a
+  >
+
+  <div class="cart-shop"><i class="bi bi-bag position-relative" (click)="restNotice()">
+
+      <span *ngIf="notice>0" class="position-absolute top-0 start-100 translate-middle-y  badge rounded-pill bg-danger ">
+
+        {{notice > 9 ? '+9':notice}}
+      </span>
+    </i>
+    </div>
+</div>

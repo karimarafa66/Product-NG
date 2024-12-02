@@ -1,0 +1,45 @@
+<div class="container bg-white d-flex flex-column flex-md-row justify-content-around align-items-center p-5 my-5">
+  <div class="video d-flex flex-column flex-md-row justify-content-center">
+    <div class="play d-flex" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="bi bi-play-circle-fill"></i>
+      <h5 class="ms-2">Play Video</h5>
+    </div>
+
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <youtube-player [videoId]="key"></youtube-player>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagination d-flex flex-column flex-md-row justify-content-center mt-4 mt-md-0">
+    <div class="left-right d-flex justify-content-between align-items-center">
+      <i class="bi bi-arrow-left me-3 fs-3" style="cursor: pointer;" (click)="updateIndexLeft()"></i>
+      <i class="bi bi-arrow-right me-3 fs-3" style="cursor: pointer;" (click)="updateIndexRight()"></i>
+    </div>
+    <div class="dots d-flex align-items-center justify-content-center mt-3 mt-md-0">
+      <h6 class="me-2">0{{ currentIndex + 1 }}</h6>
+      <ng-container *ngFor="let dat of data; let i = index">
+        <i
+          [class.pagination]="currentIndex === i"
+          style="color: rgba(128, 128, 128, 0.541);"
+          class="bi bi-dash-lg fs-3 me-2"
+        ></i>
+      </ng-container>
+      <h6 class="ms-2">0{{ length }}</h6>
+    </div>
+  </div>
+  <div class="add-to-cart d-flex align-items-center mt-4 mt-md-0">
+    <button class="btn btn-dark border-0 rounded-0 py-2 px-4 me-3" (click)="addToCart()">Add To Cart</button>
+    <i class="bi {{ fev ? 'bi-heart-fill' : 'bi-heart' }} fs-3 pointer-event" (click)="addToFev()"></i>
+  </div>
+</div>
